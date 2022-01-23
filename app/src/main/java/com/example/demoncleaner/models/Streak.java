@@ -11,6 +11,7 @@ public class Streak {
     private int id;
     private Date startDate;
     private Date endDate;
+    private String comment;
 
     public int getId() {
         return id;
@@ -24,6 +25,8 @@ public class Streak {
         return endDate;
     }
 
+    public String getComment() { return comment; }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -35,4 +38,6 @@ public class Streak {
     public void setEndDate(Date date) {
         this.endDate = date;
     }
+
+    public void setComment(String comment) { this.comment = comment; }
 }

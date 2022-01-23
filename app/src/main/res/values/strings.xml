@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DemonCleaner</string>
+    <string name="progress">Progress</string>
+    <string name="settings">Settings</string>
 </resources>
