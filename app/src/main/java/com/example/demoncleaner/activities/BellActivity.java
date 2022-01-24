@@ -1,9 +1,13 @@
-package com.example.demoncleaner;
+package com.example.demoncleaner.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
+import com.example.demoncleaner.Accelerometer;
+import com.example.demoncleaner.Gyroscope;
+import com.example.demoncleaner.R;
 
 public class BellActivity extends AppCompatActivity {
 
@@ -15,7 +19,7 @@ public class BellActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_bell);
 
         accelerometer = new Accelerometer(this);
         gyroscope = new Gyroscope(this);
