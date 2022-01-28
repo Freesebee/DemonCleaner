@@ -1,4 +1,4 @@
-package com.example.demoncleaner.fragments;
+package com.example.demoncleaner.fragments.main;
 
 import android.os.Bundle;
 
