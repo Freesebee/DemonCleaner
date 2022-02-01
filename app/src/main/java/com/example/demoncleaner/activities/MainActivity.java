@@ -19,9 +19,7 @@ import com.example.demoncleaner.viewmodels.StreakViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(dayChangedReceiver);
     }
 
-    private class DayChangedBroadcastReceiver extends com.example.demoncleaner.DayChangedBroadcastReceiver {
+    private class DayChangedBroadcastReceiver extends com.example.demoncleaner.broadcastReceivers.DayChangedBroadcastReceiver {
 
         @Override
         protected void onDayChanged() {

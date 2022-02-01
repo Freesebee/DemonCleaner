@@ -65,20 +65,13 @@ public class StreaksDataActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_streaks_data);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
     private class StreakHolder extends RecyclerView.ViewHolder {
 
         private TextView StreakNote;
 
         public StreakHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.streak_list_item, parent, false));
-            StreakNote = itemView.findViewById(R.id.streak_text_view);
+            StreakNote = itemView.findViewById(R.id.edit_streak_note);
         }
 
         public void bind(Streak streak) {

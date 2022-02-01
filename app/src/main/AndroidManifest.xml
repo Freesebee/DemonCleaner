@@ -39,7 +39,7 @@
         </activity>
 
         <receiver
-            android:name=".DayChangedBroadcastReceiver"
+            android:name=".broadcastReceivers.DayChangedBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />

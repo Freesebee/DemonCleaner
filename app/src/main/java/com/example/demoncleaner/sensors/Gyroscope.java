@@ -1,4 +1,4 @@
-package com.example.demoncleaner;
+package com.example.demoncleaner.sensors;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -6,27 +6,26 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-public class Accelerometer {
+public class Gyroscope {
 
     public interface Listener {
-        void onTranslation(float tx, float ty, float tz);
+        void onRotation(float rx, float ry, float rz);
     }
 
     private Listener listener;
 
     private SensorManager sensorManager;
-    private Sensor accelerometer;
+    private Sensor gyroscope;
     private SensorEventListener sensorEventListener;
 
-    public Accelerometer(Context context) {
+    public Gyroscope(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensorEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
-
                 if (listener != null) {
-                    listener.onTranslation(sensorEvent.values[0], sensorEvent.values[1], sensorEvent.values[2]);
+                    listener.onRotation(sensorEvent.values[0], sensorEvent.values[1], sensorEvent.values[2]);
                 }
             }
 
@@ -42,7 +41,7 @@ public class Accelerometer {
     }
 
     public void register() {
-        sensorManager.registerListener(sensorEventListener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(sensorEventListener, gyroscope, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void unregister() {

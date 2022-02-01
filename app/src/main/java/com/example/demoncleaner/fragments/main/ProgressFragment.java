@@ -1,5 +1,6 @@
 package com.example.demoncleaner.fragments.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.demoncleaner.R;
+import com.example.demoncleaner.activities.BellActivity;
+import com.example.demoncleaner.activities.StreaksDataActivity;
 import com.example.demoncleaner.models.Streak;
 import com.example.demoncleaner.viewmodels.StreakViewModel;
 import com.github.mikephil.charting.charts.LineChart;
@@ -33,7 +37,7 @@ public class ProgressFragment extends Fragment{
 
     private StreakViewModel streakViewModel;
     private LineChart lineChart;
-
+    private Button modifyProgressButton;
 
     @Nullable
     @Override
@@ -48,6 +52,14 @@ public class ProgressFragment extends Fragment{
         lineChart.getDescription().setEnabled(false);
 
         ArrayList<Entry> yValues = new ArrayList<>();
+
+        modifyProgressButton = viewGroup.findViewById(R.id.modifyProgressButton);
+        modifyProgressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Add navigation to Streaks
+            }
+        });
 
         streakViewModel = new ViewModelProvider(this).get(StreakViewModel.class);
         streakViewModel.findAll().observe(getViewLifecycleOwner(), streaks -> {
@@ -72,6 +84,12 @@ public class ProgressFragment extends Fragment{
         });
 
         return viewGroup;
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
     }
 }

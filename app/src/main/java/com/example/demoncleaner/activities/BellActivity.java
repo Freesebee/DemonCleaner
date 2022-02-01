@@ -3,11 +3,10 @@ package com.example.demoncleaner.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
-import com.example.demoncleaner.Accelerometer;
-import com.example.demoncleaner.Gyroscope;
+import com.example.demoncleaner.sensors.Accelerometer;
+import com.example.demoncleaner.sensors.Gyroscope;
 import com.example.demoncleaner.R;
 
 public class BellActivity extends AppCompatActivity {
