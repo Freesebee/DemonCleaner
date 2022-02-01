@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         streakViewModel = new ViewModelProvider(this).get(StreakViewModel.class);
 
-        if(checkDayPassed()) {
-            switchToBellActivity();
-        }
+        //TODO: Fix
+//        if(checkDayPassed()) {
+//            switchToBellActivity();
+//        }
 
         dayChangedReceiver = new DayChangedBroadcastReceiver();
 
@@ -103,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
         streakViewModel.findAll().observe(this, streaks -> {
 
             Streak last = streaks.get(0);
-            Date currentDate = (Date) Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+
+            //TODO: Find why it's not working
+            java.util.Date currentDate = java.util.Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 
             for (Streak streak : streaks) {
                 if(last == null || betweenDates(last.getEndDate(), streak.getEndDate()) > 0) {
