@@ -18,11 +18,13 @@ import com.example.demoncleaner.models.Streak;
 import com.example.demoncleaner.viewmodels.StreakViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         streakViewModel = new ViewModelProvider(this).get(StreakViewModel.class);
-
 
         if(checkDayPassed()) {
             switchToBellActivity();
@@ -97,20 +98,23 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean checkDayPassed() {
 
-        List<Streak> streaks = streakViewModel.findAll().getValue();
+        AtomicBoolean result = new AtomicBoolean(false);
 
-        if(streaks == null || streaks.isEmpty()) return false;
+        streakViewModel.findAll().observe(this, streaks -> {
 
-        Streak last = streaks.get(0);
-        Date currentDate = Date.valueOf(String.valueOf(LocalDateTime.now()));
+            Streak last = streaks.get(0);
+            Date currentDate = (Date) Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 
-        for (Streak streak : streaks) {
-            if(last == null || betweenDates(last.getEndDate(), streak.getEndDate()) > 0) {
-                last = streak;
+            for (Streak streak : streaks) {
+                if(last == null || betweenDates(last.getEndDate(), streak.getEndDate()) > 0) {
+                    last = streak;
+                }
             }
-        }
 
-        return betweenDates(last.getEndDate(), currentDate) > 0;
+            result.set(betweenDates(last.getEndDate(), currentDate) > 0);
+        });
+
+        return result.get();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
