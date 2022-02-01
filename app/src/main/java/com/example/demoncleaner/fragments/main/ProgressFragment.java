@@ -16,6 +16,7 @@ import com.example.demoncleaner.R;
 import com.example.demoncleaner.models.Streak;
 import com.example.demoncleaner.viewmodels.StreakViewModel;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -43,7 +44,8 @@ public class ProgressFragment extends Fragment{
         lineChart = viewGroup.findViewById(R.id.lineChart);
 
         lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(false);
+        lineChart.setScaleEnabled(true);
+        lineChart.getDescription().setEnabled(false);
 
         ArrayList<Entry> yValues = new ArrayList<>();
 

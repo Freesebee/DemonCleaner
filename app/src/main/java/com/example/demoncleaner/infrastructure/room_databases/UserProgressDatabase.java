@@ -52,18 +52,18 @@ public abstract class UserProgressDatabase extends RoomDatabase {
                 dao.deleteAll();
 
                 Streak streak = new Streak();
-                streak.setStartDate(new Date(2000,2,3));
-                streak.setEndDate(new Date(2000,2,6));
+                streak.setStartDate(new Date(2022,1,23));
+                streak.setEndDate(new Date(2022,1,26));
                 dao.insert(streak);
 
                 streak = new Streak();
-                streak.setStartDate(new Date(2000,2,6));
-                streak.setEndDate(new Date(2000,2,10));
+                streak.setStartDate(new Date(2022,1,26));
+                streak.setEndDate(new Date(2022,1,29));
                 dao.insert(streak);
 
                 streak = new Streak();
-                streak.setStartDate(new Date(2000,2,10));
-                streak.setEndDate(new Date(2000,2,17));
+                streak.setStartDate(new Date(2022,1,29));
+                streak.setEndDate(new Date(2022,1, 31));
                 dao.insert(streak);
             });
         }

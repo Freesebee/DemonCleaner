@@ -1,42 +1,48 @@
 package com.example.demoncleaner.activities;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.demoncleaner.DayChangedBroadcastReceiver;
 import com.example.demoncleaner.R;
 import com.example.demoncleaner.fragments.main.ProgressFragment;
 import com.example.demoncleaner.fragments.main.SettingsFragment;
+import com.example.demoncleaner.models.Streak;
+import com.example.demoncleaner.viewmodels.StreakViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.Set;
+import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
+    private StreakViewModel streakViewModel;
     private DayChangedBroadcastReceiver dayChangedReceiver;
     private final IntentFilter filter = new IntentFilter();
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        streakViewModel = new ViewModelProvider(this).get(StreakViewModel.class);
+
+
+        if(checkDayPassed()) {
+            switchToBellActivity();
+        }
 
         dayChangedReceiver = new DayChangedBroadcastReceiver();
 
@@ -48,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new ProgressFragment()).commit();
 
-        bottomNavigationView = findViewById(R.id.bottom_nav_menu);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_menu);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -83,8 +89,43 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onDayChanged() {
-            Toast toast = Toast.makeText(getApplicationContext(), "CHEATER_PLACEHOLDER", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.user_cheating, Toast.LENGTH_LONG);
             toast.show();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean checkDayPassed() {
+
+        List<Streak> streaks = streakViewModel.findAll().getValue();
+
+        if(streaks == null || streaks.isEmpty()) return false;
+
+        Streak last = streaks.get(0);
+        Date currentDate = Date.valueOf(String.valueOf(LocalDateTime.now()));
+
+        for (Streak streak : streaks) {
+            if(last == null || betweenDates(last.getEndDate(), streak.getEndDate()) > 0) {
+                last = streak;
+            }
+        }
+
+        return betweenDates(last.getEndDate(), currentDate) > 0;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private long betweenDates(java.util.Date firstDate, java.util.Date secondDate) {
+        return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private long betweenDates(Date firstDate, Date secondDate)
+    {
+        return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
+    }
+
+    private void switchToBellActivity() {
+        Intent switchActivityIntent = new Intent(this, BellActivity.class);
+        startActivity(switchActivityIntent);
     }
 }

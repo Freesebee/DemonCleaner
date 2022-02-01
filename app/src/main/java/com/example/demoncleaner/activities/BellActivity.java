@@ -2,6 +2,7 @@ package com.example.demoncleaner.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -29,14 +30,8 @@ public class BellActivity extends AppCompatActivity {
             double changeInAcceleration = Math.abs(accelerationCurrentValue - accelerationPreviousValue);
             accelerationPreviousValue = accelerationCurrentValue;
 
-            if(changeInAcceleration > 8.0f) {
-                getWindow().getDecorView().setBackgroundColor(Color.RED);
-            }
-            else if(changeInAcceleration > 4.5f) {
-                getWindow().getDecorView().setBackgroundColor(Color.YELLOW);
-            }
-            else {
-                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+            if(changeInAcceleration > 4.5f) {
+                switchToMainActivity();
             }
         });
 
@@ -58,5 +53,10 @@ public class BellActivity extends AppCompatActivity {
 
         accelerometer.unregister();
         gyroscope.unregister();
+    }
+
+    private void switchToMainActivity() {
+        Intent switchActivityIntent = new Intent(this, MainActivity.class);
+        startActivity(switchActivityIntent);
     }
 }
