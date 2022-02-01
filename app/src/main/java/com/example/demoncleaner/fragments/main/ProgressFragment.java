@@ -53,7 +53,7 @@ public class ProgressFragment extends Fragment{
             for (Streak streak : streaks) {
                 long diff = streak.getEndDate().getTime() - streak.getStartDate().getTime();
                 int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-                for (int d = 0; d < days; d++) {
+                for (int d = 0; d <= days; d++) {
                     yValues.add(new Entry(xValue++, d));
                 }
             }

@@ -2,15 +2,18 @@ package com.example.demoncleaner.infrastructure.room_databases;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.demoncleaner.infrastructure.converters.DateConverters;
 import com.example.demoncleaner.infrastructure.data_access_objects.StreakDAO;
 import com.example.demoncleaner.models.Streak;
 
+import java.sql.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -30,11 +33,39 @@ public abstract class UserProgressDatabase extends RoomDatabase {
             synchronized (UserProgressDatabase.class) {
                 if (_instance == null) {
                     _instance = Room.databaseBuilder(context.getApplicationContext(),
-                            UserProgressDatabase.class, "streak_db").build();
+                            UserProgressDatabase.class, "streak_db")
+                            .addCallback(callback) // TODO: Remove after tests
+                            .build();
                 }
             }
         }
 
         return _instance;
     }
+
+    private static RoomDatabase.Callback callback = new RoomDatabase.Callback() {
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            databaseWriteExecutor.execute(() -> {
+                StreakDAO dao = _instance.streakDAO();
+                dao.deleteAll();
+
+                Streak streak = new Streak();
+                streak.setStartDate(new Date(2000,2,3));
+                streak.setEndDate(new Date(2000,2,6));
+                dao.insert(streak);
+
+                streak = new Streak();
+                streak.setStartDate(new Date(2000,2,6));
+                streak.setEndDate(new Date(2000,2,10));
+                dao.insert(streak);
+
+                streak = new Streak();
+                streak.setStartDate(new Date(2000,2,10));
+                streak.setEndDate(new Date(2000,2,17));
+                dao.insert(streak);
+            });
+        }
+    };
 }
