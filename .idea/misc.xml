@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/activity_edit_streak.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/activity_streaks_data.xml" value="0.67" />
         <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/content_streaks_data.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/fragment_progress.xml" value="0.36666666666666664" />
         <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/fragment_resources.xml" value="0.20520833333333333" />
+        <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/fragment_settings.xml" value="0.2609375" />
+        <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/resources_list.xml" value="0.67" />
+        <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/layout/streak_list_item.xml" value="1.0" />
+        <entry key="..\:/Documents/Aktualne Studia/SM/Backup/app/src/main/res/menu/nav_menu.xml" value="0.35104166666666664" />
         <entry key="..\:/Documents/Aktualne Studia/SM/Projekt/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Documents/Aktualne Studia/SM/Projekt/app/src/main/res/layout/fragment_progress.xml" value="0.35104166666666664" />
         <entry key="..\:/Documents/Aktualne Studia/SM/Projekt/app/src/main/res/layout/fragment_settings.xml" value="0.33697916666666666" />

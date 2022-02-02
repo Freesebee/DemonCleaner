@@ -13,4 +13,9 @@
     <string name="button_update_streak">Zapisz</string>
     <string name="empty_not_saved">Ciąg znaków jest pusty</string>
     <string name="streak_added">Dodano nowy postęp</string>
+    <string name="notification_title">Gratulacje!</string>
+    <string name="notification_content">Kolejny dzień kolejna przygoda!</string>
+    <string name="Youtube_video">Filmy Youtube</string>
+    <string name="resources">Materiały</string>
+    <string name="streak_table_headers">Rozpoczęto&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Zakończono&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Notka</string>
 </resources>

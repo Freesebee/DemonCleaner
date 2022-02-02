@@ -1,6 +1,10 @@
 package com.example.demoncleaner.activities;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.demoncleaner.models.Streak;
@@ -8,6 +12,7 @@ import com.example.demoncleaner.viewmodels.StreakViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -29,6 +34,8 @@ import com.example.demoncleaner.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class StreaksDataActivity extends AppCompatActivity {
@@ -36,46 +43,66 @@ public class StreaksDataActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private StreakViewModel streakViewModel;
     public static final int NEW_STREAK_ACTIVITY_REQUEST_CODE = 1;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+
+    public StreaksDataActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaks_data);
 
-        RecyclerView recyclerView = findViewById(R.id.streaksRecyclerView);
-        final StreakAdapter adapter = new StreakAdapter();
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = (RecyclerView) findViewById(R.id.streaksRecyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new StreakAdapter();
+        recyclerView.setAdapter(mAdapter);
 
         streakViewModel = new ViewModelProvider(this).get(StreakViewModel.class);
-        streakViewModel.findAll().observe(this, new Observer<List<Streak>>() {
-            @Override
-            public void onChanged(List<Streak> streaks) {
-                adapter.setStreaks(streaks);
-            }
-        });
-
-        FloatingActionButton addStreakButton = findViewById(R.id.add_button);
-        addStreakButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StreaksDataActivity.this, EditStreakActivity.class);
-                startActivityForResult(intent, NEW_STREAK_ACTIVITY_REQUEST_CODE);
-            }
-        });
+        streakViewModel.findAll().observe(this, streaks -> ((StreakAdapter)mAdapter).setStreaks(streaks));
     }
 
     private class StreakHolder extends RecyclerView.ViewHolder {
 
         private TextView StreakNote;
+        private TextView startDateTextView;
+        private TextView endDateTextView;
 
         public StreakHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.streak_list_item, parent, false));
-            StreakNote = itemView.findViewById(R.id.edit_streak_note);
+            StreakNote = (TextView) itemView.findViewById(R.id.streakNote);
+            startDateTextView = (TextView) itemView.findViewById(R.id.startDateTextView);
+            endDateTextView = (TextView) itemView.findViewById(R.id.endDateTextView);
         }
 
+        public StreakHolder(@NonNull View itemView) {
+            super(itemView);
+            StreakNote = (TextView) itemView.findViewById(R.id.streakNote);
+            startDateTextView = (TextView) itemView.findViewById(R.id.startDateTextView);
+            endDateTextView = (TextView) itemView.findViewById(R.id.endDateTextView);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
         public void bind(Streak streak) {
-            StreakNote.setText(streak.getComment());
+
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sm = new SimpleDateFormat("MM-dd-yyyy");
+
+            String strStartDate = sm.format(streak.getStartDate());
+            startDateTextView.setText(strStartDate);
+
+            String strEndDate = sm.format(streak.getStartDate());
+            endDateTextView.setText(strEndDate);
+
+            String comment = "No comment";
+            if (streak.getComment() != null) comment = streak.getComment();
+            StreakNote.setText(comment);
         }
     }
 
@@ -86,14 +113,15 @@ public class StreaksDataActivity extends AppCompatActivity {
         @NonNull
         @Override
         public StreakHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new StreakHolder(getLayoutInflater(), parent);
+            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.streak_list_item, parent, false);
+            return new StreakHolder(view);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void onBindViewHolder(@NonNull StreakHolder holder, int position) {
             if(streaks != null) {
-                Streak streak = streaks.get(position);
-                holder.bind(streak);
+                holder.bind(streaks.get(position));
             } else {
                 Log.d("StreaksDataActivity", getString(R.string.empty_streak_list));
             }
@@ -108,25 +136,6 @@ public class StreaksDataActivity extends AppCompatActivity {
         public void setStreaks(List<Streak> streaks) {
             this.streaks = streaks;
             notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == NEW_STREAK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-
-            Streak streak = new Streak();
-            streak.setComment(data.getStringExtra(EditStreakActivity.EXTRA_EDIT_STREAK_NOTE));
-            streakViewModel.insert(streak);
-
-            Snackbar.make(findViewById(R.id.main_layout), getString(R.string.streak_added), Snackbar.LENGTH_LONG).show();
-        } else {
-            Snackbar.make(findViewById(R.id.main_layout),
-                    getString(R.string.empty_not_saved),
-                    Snackbar.LENGTH_LONG)
-                    .show();
         }
     }
 }

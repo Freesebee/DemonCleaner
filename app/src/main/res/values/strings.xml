@@ -12,4 +12,11 @@
     <string name="button_update_streak">Save</string>
     <string name="empty_not_saved">String is empty</string>
     <string name="streak_added">Added new streak</string>
+    <string name="notification_title">Congrats!</string>
+    <string name="notification_content">Another day, another great adventure!</string>
+    <string name="channel_id" translatable="false">notif_channel</string>
+    <string name="channel_name" translatable="false">my_channel_name</string>
+    <string name="Youtube_video">Youtube Videos</string>
+    <string name="resources">Resources</string>
+    <string name="streak_table_headers">Start Date&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;End Date&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Comment</string>
 </resources>
