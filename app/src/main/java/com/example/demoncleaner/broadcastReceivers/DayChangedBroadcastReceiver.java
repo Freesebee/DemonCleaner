@@ -1,4 +1,4 @@
-package com.example.demoncleaner;
+package com.example.demoncleaner.broadcastReceivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

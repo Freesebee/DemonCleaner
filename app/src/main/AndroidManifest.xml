@@ -18,6 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DemonCleaner">
         <activity
+            android:name=".activities.EditStreakActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.StreaksDataActivity"
+            android:exported="false"
+            android:label="@string/title_activity_streaks_data"
+            android:theme="@style/Theme.DemonCleaner.NoActionBar" />
+        <activity
             android:name=".activities.BellActivity"
             android:exported="false" />
         <activity
@@ -29,11 +37,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".DayChangedBroadcastReceiver"  android:exported="true">
+
+        <receiver
+            android:name=".broadcastReceivers.DayChangedBroadcastReceiver"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.DATE_CHANGED" />
             </intent-filter>
         </receiver>
     </application>
+
 </manifest>

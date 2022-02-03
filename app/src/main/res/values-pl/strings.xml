@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DemonCleaner</string>
+    <string name="progress">Postęp</string>
+    <string name="settings">Ustawienia</string>
+    <string name="hello_blank_fragment">Pusty fragment</string>
+    <string name="user_cheating">Masz problemy z walką z nałogiem? Odwiedź zakładkę "Zasoby" aby skorzystać z polecanych źródeł</string>
+    <string name="shake_bell">Potrząśnij urządzeniem aby kontynuować!</string>
+    <string name="stop_streak_button">Poddaj się</string>
+    <string name="modify_progress">Modyfikuj postęp</string>
+    <string name="empty_streak_list">Nie znaleziono żadnych postępów</string>
+    <string name="title_activity_streaks_data">StreaksDataActivity</string>
+    <string name="button_update_streak">Zapisz</string>
+    <string name="empty_not_saved">Ciąg znaków jest pusty</string>
+    <string name="streak_added">Dodano nowy postęp</string>
+    <string name="notification_title">Gratulacje!</string>
+    <string name="notification_content">Kolejny dzień kolejna przygoda!</string>
+    <string name="Youtube_video">Filmy Youtube</string>
+    <string name="resources">Materiały</string>
+    <string name="streak_table_headers">Rozpoczęto&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Zakończono&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Notka</string>
+</resources>

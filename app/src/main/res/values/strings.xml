@@ -2,9 +2,21 @@
     <string name="app_name">DemonCleaner</string>
     <string name="progress">Progress</string>
     <string name="settings">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_cheating">Having a hard time fighting your habits? Check our external resources for additional support</string>
     <string name="shake_bell">Shake you device to continue fighting!</string>
     <string name="stop_streak_button">Give up</string>
+    <string name="modify_progress">Modify progress</string>
+    <string name="empty_streak_list">There are no streaks</string>
+    <string name="title_activity_streaks_data">StreaksDataActivity</string>
+    <string name="button_update_streak">Save</string>
+    <string name="empty_not_saved">String is empty</string>
+    <string name="streak_added">Added new streak</string>
+    <string name="notification_title">Congrats!</string>
+    <string name="notification_content">Another day, another great adventure!</string>
+    <string name="channel_id" translatable="false">notif_channel</string>
+    <string name="channel_name" translatable="false">my_channel_name</string>
+    <string name="Youtube_video">Youtube Videos</string>
+    <string name="resources">Resources</string>
+    <string name="streak_table_headers">Start Date&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;End Date&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Comment</string>
 </resources>
